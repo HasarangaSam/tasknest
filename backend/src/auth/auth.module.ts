@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, type JwtSignOptions } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AuthController } from './auth.controller.js';
@@ -20,14 +20,16 @@ import { RolesGuard } from './guards/roles.guard.js';
         secret: configService.getOrThrow<string>('JWT_SECRET'),
 
         signOptions: {
-          expiresIn: configService.getOrThrow<number>('JWT_EXPIRES_IN'),
+          expiresIn: configService.getOrThrow<JwtSignOptions['expiresIn']>(
+            'JWT_EXPIRES_IN',
+          ),
         },
       }),
     }),
   ],
 
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, JwtAuthGuard, RolesGuard],
   exports: [JwtAuthGuard, RolesGuard],
 })
 export class AuthModule {}
