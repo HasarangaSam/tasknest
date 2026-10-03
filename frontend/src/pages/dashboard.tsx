@@ -1,44 +1,51 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth-context.js";
 
 export function Dashboard() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login", { replace: true });
-  };
+  const { user } = useAuth();
 
   return (
-    <main className="min-h-screen bg-slate-50">
-      <header className="border-b bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <div>
-            <h1 className="text-xl font-bold text-slate-900">TaskNest</h1>
+    <section className="mx-auto max-w-7xl px-6 py-10">
+      <div>
+        <p className="text-sm font-medium text-blue-600">Dashboard</p>
 
-            <p className="text-sm text-slate-500">Task management</p>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-          >
-            Logout
-          </button>
-        </div>
-      </header>
-
-      <section className="mx-auto max-w-5xl px-6 py-10">
-        <h2 className="text-3xl font-bold text-slate-900">
+        <h1 className="mt-2 text-3xl font-bold text-slate-900">
           Welcome, {user?.name}
-        </h2>
+        </h1>
 
         <p className="mt-2 text-slate-600">
-          You are signed in as {user?.role}.
+          Manage your tasks and keep track of your progress.
         </p>
-      </section>
-    </main>
+      </div>
+
+      <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <div className="rounded-xl border bg-white p-6">
+          <p className="text-sm text-slate-500">Account</p>
+
+          <p className="mt-2 text-lg font-semibold text-slate-900">
+            {user?.role}
+          </p>
+        </div>
+
+        <div className="rounded-xl border bg-white p-6">
+          <p className="text-sm text-slate-500">Email</p>
+
+          <p className="mt-2 break-all text-lg font-semibold text-slate-900">
+            {user?.email}
+          </p>
+        </div>
+
+        <div className="rounded-xl border bg-white p-6">
+          <p className="text-sm text-slate-500">Tasks</p>
+
+          <Link
+            to="/tasks"
+            className="mt-2 inline-block text-lg font-semibold text-blue-600 hover:text-blue-700"
+          >
+            View your tasks →
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
