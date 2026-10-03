@@ -51,11 +51,11 @@ export function TaskForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-xl border bg-white p-6">
+    <form onSubmit={handleSubmit} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <div>
         <label
           htmlFor="title"
-          className="mb-2 block text-sm font-medium text-slate-700"
+          className="mb-1.5 block text-sm font-medium text-slate-700"
         >
           Title
         </label>
@@ -67,14 +67,14 @@ export function TaskForm({
           onChange={(event) => setTitle(event.target.value)}
           maxLength={150}
           required
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+          className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
         />
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <label
           htmlFor="description"
-          className="mb-2 block text-sm font-medium text-slate-700"
+          className="mb-1.5 block text-sm font-medium text-slate-700"
         >
           Description
         </label>
@@ -84,16 +84,16 @@ export function TaskForm({
           value={description}
           onChange={(event) => setDescription(event.target.value)}
           maxLength={2000}
-          rows={5}
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+          rows={4}
+          className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
         />
       </div>
 
-      <div className="mt-5 grid gap-5 md:grid-cols-2">
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
         <div>
           <label
             htmlFor="priority"
-            className="mb-2 block text-sm font-medium text-slate-700"
+            className="mb-1.5 block text-sm font-medium text-slate-700"
           >
             Priority
           </label>
@@ -104,7 +104,7 @@ export function TaskForm({
             onChange={(event) =>
               setPriority(event.target.value as TaskPriority)
             }
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           >
             <option value="LOW">Low</option>
             <option value="MEDIUM">Medium</option>
@@ -116,7 +116,7 @@ export function TaskForm({
           <div>
             <label
               htmlFor="status"
-              className="mb-2 block text-sm font-medium text-slate-700"
+              className="mb-1.5 block text-sm font-medium text-slate-700"
             >
               Status
             </label>
@@ -125,7 +125,7 @@ export function TaskForm({
               id="status"
               value={status}
               onChange={(event) => setStatus(event.target.value as TaskStatus)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             >
               <option value="TODO">To Do</option>
               <option value="IN_PROGRESS">In Progress</option>
@@ -135,10 +135,10 @@ export function TaskForm({
         )}
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <label
           htmlFor="dueDate"
-          className="mb-2 block text-sm font-medium text-slate-700"
+          className="mb-1.5 block text-sm font-medium text-slate-700"
         >
           Due date
         </label>
@@ -148,21 +148,21 @@ export function TaskForm({
           type="date"
           value={dueDate}
           onChange={(event) => setDueDate(event.target.value)}
-          className="rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+          className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
         />
       </div>
 
       {error && (
-        <p className="mt-5 rounded-lg bg-red-50 p-3 text-sm text-red-700">
+        <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 border border-red-100">
           {error}
         </p>
       )}
 
-      <div className="mt-6">
+      <div className="mt-5">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="rounded-lg bg-blue-600 px-5 py-2 font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-lg bg-blue-600 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 transition-colors shadow-sm"
         >
           {isSubmitting ? "Saving..." : submitLabel}
         </button>

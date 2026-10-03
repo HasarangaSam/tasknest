@@ -39,52 +39,52 @@ export function Admin() {
   }, [token]);
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-10">
-      <div>
-        <p className="text-sm font-medium text-blue-600">Administration</p>
-
-        <h1 className="mt-2 text-3xl font-bold text-slate-900">Users</h1>
-
-        <p className="mt-2 text-slate-600">
+    <section className="mx-auto max-w-7xl px-6 py-6">
+      <div className="mb-4">
+        <p className="text-xs font-semibold uppercase tracking-widest text-blue-500">
+          Administration
+        </p>
+        <h1 className="mt-0.5 text-2xl font-bold text-slate-900">Users</h1>
+        <p className="mt-0.5 text-sm text-slate-500">
           Manage TaskNest users and their roles.
         </p>
       </div>
 
       {error && (
-        <div className="mt-6 rounded-lg bg-red-50 p-4 text-sm text-red-700">
+        <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 border border-red-100">
           {error}
         </div>
       )}
 
       {isLoading ? (
-        <div className="mt-8 rounded-xl border bg-white p-10 text-center">
-          <p className="text-slate-600">Loading users...</p>
+        <div className="rounded-xl border border-slate-200 bg-white py-16 text-center shadow-sm">
+          <p className="text-sm text-slate-500">Loading users...</p>
         </div>
       ) : (
-        <div className="mt-8 overflow-hidden rounded-xl border bg-white">
+        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
           <div className="overflow-x-auto">
             <table className="min-w-full text-left">
-              <thead className="border-b bg-slate-50">
+              <thead className="border-b border-slate-100 bg-slate-50">
                 <tr>
-                  <th className="px-6 py-4 text-sm font-semibold text-slate-700">
+                  <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Name
                   </th>
 
-                  <th className="px-6 py-4 text-sm font-semibold text-slate-700">
+                  <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Email
                   </th>
 
-                  <th className="px-6 py-4 text-sm font-semibold text-slate-700">
+                  <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Role
                   </th>
 
-                  <th className="px-6 py-4 text-sm font-semibold text-slate-700">
+                  <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Actions
                   </th>
                 </tr>
               </thead>
 
-              <tbody className="divide-y">
+              <tbody className="divide-y divide-slate-100">
                 {users.map((user) => (
                   <UserRow
                     key={user.id}
@@ -192,36 +192,36 @@ function UserRow({ user, token, onUpdated, onDeleted }: UserRowProps) {
   };
 
   return (
-    <tr>
-      <td className="px-6 py-4">
+    <tr className="hover:bg-slate-50 transition-colors">
+      <td className="px-5 py-3">
         <input
           type="text"
           value={name}
           onChange={(event) => setName(event.target.value)}
-          className="w-full min-w-40 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
+          className="w-full min-w-36 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none transition focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
         />
 
-        {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
+        {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
       </td>
 
-      <td className="px-6 py-4 text-sm text-slate-600">{user.email}</td>
+      <td className="px-5 py-3 text-sm text-slate-600">{user.email}</td>
 
-      <td className="px-6 py-4">
+      <td className="px-5 py-3">
         <select
           value={role}
           onChange={(event) => setRole(event.target.value as UserRole)}
-          className="rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
+          className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
         >
           <option value="USER">USER</option>
           <option value="ADMIN">ADMIN</option>
         </select>
       </td>
 
-      <td className="px-6 py-4">
+      <td className="px-5 py-3">
         <div className="flex flex-wrap gap-2">
           <Link
             to={`/admin/users/${user.id}`}
-            className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100 transition-colors"
           >
             View
           </Link>
@@ -230,7 +230,7 @@ function UserRow({ user, token, onUpdated, onDeleted }: UserRowProps) {
             type="button"
             onClick={handleSave}
             disabled={isSaving}
-            className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 transition-colors"
           >
             {isSaving ? "Saving..." : "Save"}
           </button>
@@ -239,7 +239,7 @@ function UserRow({ user, token, onUpdated, onDeleted }: UserRowProps) {
             type="button"
             onClick={handleDelete}
             disabled={isDeleting}
-            className="rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60 transition-colors"
           >
             {isDeleting ? "Deleting..." : "Delete"}
           </button>

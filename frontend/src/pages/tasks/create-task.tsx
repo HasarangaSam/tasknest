@@ -52,18 +52,20 @@ export function CreateTask() {
   };
 
   return (
-    <section className="mx-auto max-w-3xl px-6 py-10">
-      <div className="mb-6">
+    <section className="mx-auto max-w-3xl px-6 py-6">
+      <div className="mb-4">
         <Link
           to="/tasks"
-          className="text-sm font-medium text-blue-600 hover:text-blue-700"
+          className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
         >
           ← Back to tasks
         </Link>
 
-        <h1 className="mt-4 text-3xl font-bold text-slate-900">Create Task</h1>
+        <h1 className="mt-3 text-2xl font-bold text-slate-900">Create Task</h1>
 
-        <p className="mt-2 text-slate-600">Add a new task to your task list.</p>
+        <p className="mt-0.5 text-sm text-slate-500">
+          Add a new task to your task list.
+        </p>
       </div>
 
       <TaskForm

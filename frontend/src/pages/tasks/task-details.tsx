@@ -19,22 +19,22 @@ function formatDate(date: string | null) {
 function getStatusClass(status: TaskStatus) {
   switch (status) {
     case "COMPLETED":
-      return "bg-green-50 text-green-700";
+      return "bg-green-100 text-green-700";
     case "IN_PROGRESS":
-      return "bg-blue-50 text-blue-700";
+      return "bg-blue-100 text-blue-700";
     default:
-      return "bg-slate-100 text-slate-700";
+      return "bg-slate-100 text-slate-600";
   }
 }
 
 function getPriorityClass(priority: TaskPriority) {
   switch (priority) {
     case "HIGH":
-      return "bg-red-50 text-red-700";
+      return "bg-red-100 text-red-700";
     case "MEDIUM":
-      return "bg-yellow-50 text-yellow-700";
+      return "bg-amber-100 text-amber-700";
     default:
-      return "bg-green-50 text-green-700";
+      return "bg-emerald-100 text-emerald-700";
   }
 }
 
@@ -109,20 +109,20 @@ export function TaskDetails() {
 
   if (isLoading) {
     return (
-      <section className="mx-auto max-w-3xl px-6 py-10">
-        <p className="text-slate-600">Loading task...</p>
+      <section className="mx-auto max-w-3xl px-6 py-6">
+        <p className="text-sm text-slate-500">Loading task...</p>
       </section>
     );
   }
 
   if (error && !task) {
     return (
-      <section className="mx-auto max-w-3xl px-6 py-10">
-        <Link to="/tasks" className="text-sm font-medium text-blue-600">
+      <section className="mx-auto max-w-3xl px-6 py-6">
+        <Link to="/tasks" className="text-sm font-medium text-blue-600 hover:text-blue-700">
           ← Back to tasks
         </Link>
 
-        <div className="mt-6 rounded-lg bg-red-50 p-4 text-sm text-red-700">
+        <div className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 border border-red-100">
           {error}
         </div>
       </section>
@@ -136,28 +136,29 @@ export function TaskDetails() {
   const canEdit = user?.role === "ADMIN" || task.userId === user?.id;
 
   return (
-    <section className="mx-auto max-w-3xl px-6 py-10">
+    <section className="mx-auto max-w-3xl px-6 py-6">
       <Link
         to="/tasks"
-        className="text-sm font-medium text-blue-600 hover:text-blue-700"
+        className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
       >
         ← Back to tasks
       </Link>
 
-      <div className="mt-6 rounded-xl border bg-white p-6">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row">
+      <div className="mt-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        {/* Title + actions */}
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">{task.title}</h1>
+            <h1 className="text-2xl font-bold text-slate-900">{task.title}</h1>
 
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-3 flex flex-wrap gap-1.5">
               <span
-                className={`rounded-full px-3 py-1 text-xs font-medium ${getStatusClass(task.status)}`}
+                className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${getStatusClass(task.status)}`}
               >
                 {formatStatus(task.status)}
               </span>
 
               <span
-                className={`rounded-full px-3 py-1 text-xs font-medium ${getPriorityClass(task.priority)}`}
+                className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${getPriorityClass(task.priority)}`}
               >
                 {task.priority}
               </span>
@@ -165,10 +166,10 @@ export function TaskDetails() {
           </div>
 
           {canEdit && (
-            <div className="flex gap-2">
+            <div className="flex flex-none gap-2">
               <Link
                 to={`/tasks/${task.id}/edit`}
-                className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
               >
                 Edit
               </Link>
@@ -177,7 +178,7 @@ export function TaskDetails() {
                 type="button"
                 onClick={handleDelete}
                 disabled={isDeleting}
-                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-lg bg-red-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60 transition-colors"
               >
                 {isDeleting ? "Deleting..." : "Delete"}
               </button>
@@ -185,39 +186,50 @@ export function TaskDetails() {
           )}
         </div>
 
-        <div className="mt-8">
-          <h2 className="text-sm font-semibold text-slate-900">Description</h2>
+        {/* Description */}
+        <div className="mt-6">
+          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            Description
+          </p>
 
-          <p className="mt-2 whitespace-pre-wrap text-slate-600">
+          <p className="mt-2 whitespace-pre-wrap text-sm text-slate-600">
             {task.description || "No description provided."}
           </p>
         </div>
 
-        <div className="mt-8 grid gap-6 border-t pt-6 sm:grid-cols-2">
+        {/* Meta grid */}
+        <div className="mt-6 grid gap-4 border-t border-slate-100 pt-5 sm:grid-cols-2">
           <div>
-            <p className="text-sm text-slate-500">Due date</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              Due date
+            </p>
 
-            <p className="mt-1 font-medium text-slate-900">
+            <p className="mt-1 text-sm font-medium text-slate-900">
               {formatDate(task.dueDate)}
             </p>
           </div>
 
           <div>
-            <p className="text-sm text-slate-500">Owner</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              Owner
+            </p>
 
-            <p className="mt-1 font-medium text-slate-900">{task.user.name}</p>
+            <p className="mt-1 text-sm font-medium text-slate-900">
+              {task.user.name}
+            </p>
 
-            <p className="text-sm text-slate-500">{task.user.email}</p>
+            <p className="text-xs text-slate-400">{task.user.email}</p>
           </div>
         </div>
 
-        <div className="mt-6 border-t pt-6 text-sm text-slate-500">
+        {/* Timestamps */}
+        <div className="mt-4 border-t border-slate-100 pt-4 flex gap-6 text-xs text-slate-400">
           <p>Created: {formatDate(task.createdAt)}</p>
-          <p className="mt-1">Last updated: {formatDate(task.updatedAt)}</p>
+          <p>Updated: {formatDate(task.updatedAt)}</p>
         </div>
 
         {error && (
-          <div className="mt-6 rounded-lg bg-red-50 p-3 text-sm text-red-700">
+          <div className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 border border-red-100">
             {error}
           </div>
         )}

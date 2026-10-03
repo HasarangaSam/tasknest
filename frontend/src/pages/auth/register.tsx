@@ -48,25 +48,30 @@ export function Register() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-100 p-6">
+    <main className="flex h-screen items-center justify-center bg-gradient-to-br from-slate-100 to-blue-50 p-6">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md rounded-xl bg-white p-8 shadow-sm"
+        className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-lg border border-slate-100"
       >
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">
-            Create your account
-          </h1>
+        {/* Brand */}
+        <div className="mb-6 flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white text-xs font-black">
+            TN
+          </span>
+          <span className="text-lg font-bold text-blue-600 tracking-tight">TaskNest</span>
+        </div>
 
-          <p className="mt-1 text-slate-600">
+        <div>
+          <h1 className="text-xl font-bold text-slate-900">Create your account</h1>
+          <p className="mt-0.5 text-sm text-slate-500">
             Join TaskNest and start managing your tasks.
           </p>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-5">
           <label
             htmlFor="name"
-            className="mb-2 block text-sm font-medium text-slate-700"
+            className="mb-1.5 block text-sm font-medium text-slate-700"
           >
             Name
           </label>
@@ -76,7 +81,7 @@ export function Register() {
             type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
             required
             minLength={2}
           />
@@ -85,7 +90,7 @@ export function Register() {
         <div className="mt-4">
           <label
             htmlFor="email"
-            className="mb-2 block text-sm font-medium text-slate-700"
+            className="mb-1.5 block text-sm font-medium text-slate-700"
           >
             Email
           </label>
@@ -95,7 +100,7 @@ export function Register() {
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
             required
           />
         </div>
@@ -103,7 +108,7 @@ export function Register() {
         <div className="mt-4">
           <label
             htmlFor="password"
-            className="mb-2 block text-sm font-medium text-slate-700"
+            className="mb-1.5 block text-sm font-medium text-slate-700"
           >
             Password
           </label>
@@ -113,14 +118,14 @@ export function Register() {
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
             required
             minLength={8}
           />
         </div>
 
         {error && (
-          <p className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+          <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600 border border-red-100">
             {error}
           </p>
         )}
@@ -128,16 +133,16 @@ export function Register() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-6 w-full rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-5 w-full rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 shadow-sm"
         >
           {isSubmitting ? "Creating account..." : "Create account"}
         </button>
 
-        <p className="mt-6 text-center text-sm text-slate-600">
+        <p className="mt-5 text-center text-sm text-slate-500">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="font-medium text-blue-600 hover:text-blue-700"
+            className="font-semibold text-blue-600 hover:text-blue-700"
           >
             Sign in
           </Link>

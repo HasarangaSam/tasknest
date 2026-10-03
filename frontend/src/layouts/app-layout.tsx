@@ -11,25 +11,30 @@ export function AppLayout() {
   };
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-    `rounded-lg px-3 py-2 text-sm font-medium ${
+    `relative flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 ${
       isActive
-        ? "bg-blue-50 text-blue-700"
-        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+        ? "bg-blue-600 text-white shadow-sm shadow-blue-200"
+        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
     }`;
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="border-b bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-8">
+    <div className="flex h-full flex-col bg-slate-100">
+      {/* Top navigation bar */}
+      <header className="flex-none border-b border-slate-200 bg-white shadow-sm">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 h-14">
+          {/* Brand + nav */}
+          <div className="flex items-center gap-6">
             <NavLink
               to="/dashboard"
-              className="text-xl font-bold text-blue-600"
+              className="flex items-center gap-2 text-lg font-bold text-blue-600 tracking-tight"
             >
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600 text-white text-xs font-black">
+                TN
+              </span>
               TaskNest
             </NavLink>
 
-            <nav className="flex items-center gap-2">
+            <nav className="flex items-center gap-1">
               <NavLink to="/dashboard" className={navLinkClass}>
                 Dashboard
               </NavLink>
@@ -50,17 +55,23 @@ export function AppLayout() {
             </nav>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* User info + logout */}
+          <div className="flex items-center gap-3">
             <div className="hidden text-right sm:block">
-              <p className="text-sm font-medium text-slate-900">{user?.name}</p>
+              <p className="text-sm font-semibold text-slate-900 leading-tight">
+                {user?.name}
+              </p>
+              <p className="text-xs text-slate-400 font-medium">{user?.role}</p>
+            </div>
 
-              <p className="text-xs text-slate-500">{user?.role}</p>
+            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold flex-none">
+              {user?.name?.charAt(0).toUpperCase()}
             </div>
 
             <button
               type="button"
               onClick={handleLogout}
-              className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 transition-all duration-150"
             >
               Logout
             </button>
@@ -68,7 +79,8 @@ export function AppLayout() {
         </div>
       </header>
 
-      <main>
+      {/* Scrollable content area — fills remaining viewport */}
+      <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
     </div>

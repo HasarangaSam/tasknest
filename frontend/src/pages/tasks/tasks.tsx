@@ -42,22 +42,22 @@ function formatDate(date: string | null) {
 function getStatusClass(status: TaskStatus) {
   switch (status) {
     case "COMPLETED":
-      return "bg-green-50 text-green-700";
+      return "bg-green-100 text-green-700";
     case "IN_PROGRESS":
-      return "bg-blue-50 text-blue-700";
+      return "bg-blue-100 text-blue-700";
     default:
-      return "bg-slate-100 text-slate-700";
+      return "bg-slate-100 text-slate-600";
   }
 }
 
 function getPriorityClass(priority: TaskPriority) {
   switch (priority) {
     case "HIGH":
-      return "bg-red-50 text-red-700";
+      return "bg-red-100 text-red-700";
     case "MEDIUM":
-      return "bg-yellow-50 text-yellow-700";
+      return "bg-amber-100 text-amber-700";
     default:
-      return "bg-green-50 text-green-700";
+      return "bg-emerald-100 text-emerald-700";
   }
 }
 
@@ -145,32 +145,34 @@ export function Tasks() {
   };
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-10">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+    <section className="mx-auto max-w-7xl px-6 py-6">
+      {/* Header row */}
+      <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
         <div>
-          <p className="text-sm font-medium text-blue-600">Task Management</p>
-
-          <h1 className="mt-2 text-3xl font-bold text-slate-900">Tasks</h1>
-
-          <p className="mt-2 text-slate-600">
+          <p className="text-xs font-semibold uppercase tracking-widest text-blue-500">
+            Task Management
+          </p>
+          <h1 className="mt-0.5 text-2xl font-bold text-slate-900">Tasks</h1>
+          <p className="mt-0.5 text-sm text-slate-500">
             {totalTasks} task{totalTasks === 1 ? "" : "s"} found.
           </p>
         </div>
 
         <Link
           to="/tasks/new"
-          className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+          className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition-colors shadow-sm"
         >
-          Create Task
+          + Create Task
         </Link>
       </div>
 
-      <div className="mt-8 rounded-xl border bg-white p-5">
-        <div className="grid gap-4 md:grid-cols-4">
+      {/* Filters bar */}
+      <div className="mb-4 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+        <div className="grid gap-3 sm:grid-cols-4">
           <div>
             <label
               htmlFor="status"
-              className="mb-2 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-400"
             >
               Status
             </label>
@@ -179,7 +181,7 @@ export function Tasks() {
               id="status"
               value={status}
               onChange={(event) => handleStatusChange(event.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             >
               <option value="">All statuses</option>
 
@@ -194,7 +196,7 @@ export function Tasks() {
           <div>
             <label
               htmlFor="priority"
-              className="mb-2 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-400"
             >
               Priority
             </label>
@@ -203,7 +205,7 @@ export function Tasks() {
               id="priority"
               value={priority}
               onChange={(event) => handlePriorityChange(event.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             >
               <option value="">All priorities</option>
 
@@ -218,7 +220,7 @@ export function Tasks() {
           <div>
             <label
               htmlFor="sortBy"
-              className="mb-2 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-400"
             >
               Sort by
             </label>
@@ -227,7 +229,7 @@ export function Tasks() {
               id="sortBy"
               value={sortBy}
               onChange={(event) => handleSortChange(event.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             >
               <option value="createdAt">Created date</option>
               <option value="updatedAt">Updated date</option>
@@ -239,7 +241,7 @@ export function Tasks() {
           <div>
             <label
               htmlFor="order"
-              className="mb-2 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-400"
             >
               Order
             </label>
@@ -248,7 +250,7 @@ export function Tasks() {
               id="order"
               value={order}
               onChange={(event) => handleOrderChange(event.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             >
               <option value="desc">Descending</option>
               <option value="asc">Ascending</option>
@@ -258,27 +260,27 @@ export function Tasks() {
       </div>
 
       {error && (
-        <div className="mt-6 rounded-lg bg-red-50 p-4 text-sm text-red-700">
+        <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 border border-red-100">
           {error}
         </div>
       )}
 
       {isLoading ? (
-        <div className="mt-6 rounded-xl border bg-white p-10 text-center">
-          <p className="text-slate-600">Loading tasks...</p>
+        <div className="rounded-xl border border-slate-200 bg-white py-16 text-center shadow-sm">
+          <p className="text-sm text-slate-500">Loading tasks...</p>
         </div>
       ) : tasks.length === 0 ? (
-        <div className="mt-6 rounded-xl border bg-white p-10 text-center">
-          <h2 className="text-lg font-semibold text-slate-900">
+        <div className="rounded-xl border border-slate-200 bg-white py-16 text-center shadow-sm">
+          <h2 className="text-base font-semibold text-slate-900">
             No tasks found
           </h2>
 
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-slate-500">
             Create a task or change your filters.
           </p>
         </div>
       ) : (
-        <div className="mt-6 space-y-4">
+        <div className="space-y-2">
           {tasks.map((task) => (
             <TaskCard key={task.id} task={task} />
           ))}
@@ -286,17 +288,17 @@ export function Tasks() {
       )}
 
       {!isLoading && totalPages > 1 && (
-        <div className="mt-8 flex items-center justify-between rounded-xl border bg-white p-4">
+        <div className="mt-4 flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-2.5 shadow-sm">
           <button
             type="button"
             disabled={page === 1}
             onClick={() => setPage((current) => current - 1)}
-            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
           >
-            Previous
+            ← Previous
           </button>
 
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-slate-500">
             Page {page} of {totalPages}
           </p>
 
@@ -304,9 +306,9 @@ export function Tasks() {
             type="button"
             disabled={page === totalPages}
             onClick={() => setPage((current) => current + 1)}
-            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
           >
-            Next
+            Next →
           </button>
         </div>
       )}
@@ -316,43 +318,41 @@ export function Tasks() {
 
 function TaskCard({ task }: { task: Task }) {
   return (
-    <article className="rounded-xl border bg-white p-6">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row">
-        <div className="min-w-0">
+    <article className="rounded-xl border border-slate-200 bg-white px-5 py-4 shadow-sm hover:border-blue-200 hover:shadow-md transition-all duration-150">
+      <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
+        <div className="min-w-0 flex-1">
           <Link
             to={`/tasks/${task.id}`}
-            className="text-xl font-semibold text-slate-900 hover:text-blue-600"
+            className="text-base font-semibold text-slate-900 hover:text-blue-600 transition-colors"
           >
             {task.title}
           </Link>
 
           {task.description && (
-            <p className="mt-2 line-clamp-2 text-sm text-slate-600">
+            <p className="mt-1 line-clamp-1 text-sm text-slate-500">
               {task.description}
             </p>
           )}
 
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-2 flex flex-wrap gap-1.5">
             <span
-              className={`rounded-full px-3 py-1 text-xs font-medium ${getStatusClass(task.status)}`}
+              className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${getStatusClass(task.status)}`}
             >
               {formatStatus(task.status)}
             </span>
 
             <span
-              className={`rounded-full px-3 py-1 text-xs font-medium ${getPriorityClass(task.priority)}`}
+              className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${getPriorityClass(task.priority)}`}
             >
               {task.priority}
             </span>
           </div>
         </div>
 
-        <div className="text-sm text-slate-500 sm:text-right">
+        <div className="flex-none text-xs text-slate-400 sm:text-right space-y-0.5">
           <p>Due: {formatDate(task.dueDate)}</p>
-
-          <p className="mt-1">Created: {formatDate(task.createdAt)}</p>
-
-          {task.user && <p className="mt-1">Owner: {task.user.name}</p>}
+          <p>Created: {formatDate(task.createdAt)}</p>
+          {task.user && <p>Owner: {task.user.name}</p>}
         </div>
       </div>
     </article>

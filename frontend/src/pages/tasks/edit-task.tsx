@@ -83,20 +83,20 @@ export function EditTask() {
 
   if (isLoading) {
     return (
-      <section className="mx-auto max-w-3xl px-6 py-10">
-        <p className="text-slate-600">Loading task...</p>
+      <section className="mx-auto max-w-3xl px-6 py-6">
+        <p className="text-sm text-slate-500">Loading task...</p>
       </section>
     );
   }
 
   if (!task) {
     return (
-      <section className="mx-auto max-w-3xl px-6 py-10">
-        <Link to="/tasks" className="text-sm font-medium text-blue-600">
+      <section className="mx-auto max-w-3xl px-6 py-6">
+        <Link to="/tasks" className="text-sm font-medium text-blue-600 hover:text-blue-700">
           ← Back to tasks
         </Link>
 
-        <div className="mt-6 rounded-lg bg-red-50 p-4 text-sm text-red-700">
+        <div className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 border border-red-100">
           {error || "Task not found."}
         </div>
       </section>
@@ -108,18 +108,18 @@ export function EditTask() {
     : "";
 
   return (
-    <section className="mx-auto max-w-3xl px-6 py-10">
-      <div className="mb-6">
+    <section className="mx-auto max-w-3xl px-6 py-6">
+      <div className="mb-4">
         <Link
           to={`/tasks/${task.id}`}
-          className="text-sm font-medium text-blue-600 hover:text-blue-700"
+          className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
         >
           ← Back to task
         </Link>
 
-        <h1 className="mt-4 text-3xl font-bold text-slate-900">Edit Task</h1>
+        <h1 className="mt-3 text-2xl font-bold text-slate-900">Edit Task</h1>
 
-        <p className="mt-2 text-slate-600">Update the task details.</p>
+        <p className="mt-0.5 text-sm text-slate-500">Update the task details.</p>
       </div>
 
       <TaskForm
