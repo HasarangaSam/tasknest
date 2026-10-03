@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { ProtectedRoute } from "./components/protected-route.js";
 import { useAuth } from "./context/auth-context.js";
 import { AppLayout } from "./layouts/app-layout.js";
+import { Admin } from "./pages/admin/admin.js";
+import { AdminUserDetails } from "./pages/admin/admin-user-details.js";
 import { Dashboard } from "./pages/dashboard.js";
 import { Login } from "./pages/auth/login.js";
 import { Register } from "./pages/auth/register.js";
@@ -9,6 +11,8 @@ import { CreateTask } from "./pages/tasks/create-task.js";
 import { EditTask } from "./pages/tasks/edit-task.js";
 import { TaskDetails } from "./pages/tasks/task-details.js";
 import { Tasks } from "./pages/tasks/tasks.js";
+import { Profile } from "./pages/profile.js";
+import { AdminRoute } from "./components/admin-route.js";
 
 function HomeRedirect() {
   const { user } = useAuth();
@@ -36,6 +40,14 @@ export function App() {
           <Route path="/tasks/:id" element={<TaskDetails />} />
 
           <Route path="/tasks/:id/edit" element={<EditTask />} />
+
+          <Route path="/profile" element={<Profile />} />
+
+          <Route element={<AdminRoute />}>
+            <Route path="/admin" element={<Admin />} />
+
+            <Route path="/admin/users/:id" element={<AdminUserDetails />} />
+          </Route>
         </Route>
       </Route>
 
